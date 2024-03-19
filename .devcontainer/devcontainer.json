@@ -1,0 +1,34 @@
+{
+    // 开发容器的名字
+    "name": "Golang Container",
+    "image": "mcr.microsoft.com/devcontainers/go:dev-1.22-bullseye",
+    // 工作区文件夹在容器中的路径
+    "workspaceFolder": "/workspace",
+    // 自定义配置，包含了一些 VS Code 扩展的安装列表
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "dbaeumer.vscode-eslint",
+                "gruntfuggly.todo-tree",
+                "ronnidc.nunjucks",
+                "eamodio.gitlens",
+                "vscode-icons-team.vscode-icons",
+                "sysoev.language-stylus"
+            ]
+        }
+    },
+    "mounts": [
+        {
+            "source": "/Users/axliu/Projects/cgroup",
+            "target": "/workspace",
+            "type": "bind"
+        }
+    ],
+    "privileged": true,
+    // 容器中的远程用户
+    "remoteUser": "root",
+    // 在容器创建后要执行的命令
+    "postCreateCommand": "",
+    // 在容器中以 root 用户运行
+    "containerUser": "root"
+}
