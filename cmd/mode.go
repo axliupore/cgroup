@@ -6,7 +6,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var mode = &cobra.Command{
+var modeCommand = &cobra.Command{
 	Use:   "mode",
 	Short: "return the cgroup mode that is mounted on the system",
 	Run: func(cmd *cobra.Command, args []string) {

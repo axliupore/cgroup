@@ -1,6 +1,6 @@
 {
     // 开发容器的名字
-    "name": "Golang Container",
+    "name": "cgroup",
     "image": "mcr.microsoft.com/devcontainers/go:dev-1.22-bullseye",
     // 工作区文件夹在容器中的路径
     "workspaceFolder": "/workspace",

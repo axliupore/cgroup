@@ -1,4 +1,6 @@
 # cgroup
+[![GoDoc](https://godoc.org/github.com/axliupore/cgroup?status.svg)](https://godoc.org/github.com/axliupore/cgroup)
+[![Go Report Card](https://goreportcard.com/badge/github.com/axliupore/cgroup)](https://goreportcard.com/report/github.com/axliupore/cgroup)
 
 Go package for creating, managing, inspecting, and destorying cgrouops.My project documentation and code refer to this [project](https://github.com/containerd/cgroups).
 
