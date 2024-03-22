@@ -4,7 +4,7 @@ const (
 	unifiedMountpoint = "/sys/fs/cgroup" // unified mount point in file system
 
 	subtreeControl = "cgroup.subtree_control"
-	controlersFile = "cgroup.controllers"
+	controllersFile = "cgroup.controllers"
 	cgroupProcs    = "cgroup.procs"
 
 	initPath = "init"

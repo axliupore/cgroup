@@ -13,6 +13,7 @@ type Manager struct {
 	path              string
 }
 
+// NewManager new a cgroup, and set resources controllers
 func NewManager(mountpoint string, group string, resources *Resources) (*Manager, error) {
 	if resources == nil {
 		return nil, errors.New("resources reference is nil")
@@ -42,6 +43,11 @@ func NewManager(mountpoint string, group string, resources *Resources) (*Manager
 }
 
 func (m *Manager) ToggleControllers(controllers []string, t ControllerToggle) error {
+	// when m.path is like /foo/bar/baz, the following files need to be written:
+	// * /sys/fs/cgroup/cgroup.subtree_control
+	// * /sys/fs/cgroup/foo/cgroup.subtree_control
+	// * /sys/fs/cgroup/foo/bar/cgroup.subtree_control
+	// Note that /sys/fs/cgroup/foo/bar/baz/cgroup.subtree_control does not need to be written.
 	split := strings.Split(m.path, "/")
 	var lastErr error
 	for i := range split {
@@ -83,8 +89,10 @@ func toggleFunc(controllers []string, prefix string) []string {
 	return out
 }
 
+// RootControllers read /sys/fs/cgroup/cgroup.controllers content
+// [cpuset cpu io memory pids rdma hugetlb]
 func (m *Manager) RootControllers() ([]string, error) {
-	b, err := os.ReadFile(filepath.Join(m.unifiedMountpoint, controlersFile))
+	b, err := os.ReadFile(filepath.Join(m.unifiedMountpoint, controllersFile))
 	if err != nil {
 		return nil, err
 	}
