@@ -5,6 +5,7 @@ import "github.com/opencontainers/runtime-spec/specs-go"
 // Resources for a cgruop unified hierarchy
 type Resources struct {
 	CPU     *CPU
+	Memory  *Memory
 	Devices []specs.LinuxDeviceCgroup // When len(Devices) is zero, devices are not controlled
 }
 
@@ -16,12 +17,18 @@ func (r *Resources) EnabledControllers() (c []string) {
 			c = append(c, "cpuset")
 		}
 	}
+	if r.Memory != nil {
+		c = append(c, "memory")
+	}
 	return
 }
 
 func (r *Resources) Values() (v []Value) {
 	if r.CPU != nil {
 		v = append(v, r.CPU.Values()...)
+	}
+	if r.Memory != nil {
+		v = append(v, r.Memory.Values()...)
 	}
 	return
 }

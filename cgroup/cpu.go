@@ -1,5 +1,10 @@
 package cgroup
 
+import (
+	"strconv"
+	"strings"
+)
+
 // CPUMax represents the maximum CPU quota in a cgroup.
 // It is a string type alias used to define the maximum CPU quota, which can be either a numeric value (representing microseconds) or "max" (indicating no limit).
 type CPUMax string
@@ -10,6 +15,14 @@ type CPU struct {
 	Max    CPUMax  // Max represents the maximum CPU quota in the cgroup.
 	Cpus   string  // Cpus represents the list of available CPU cores in the CPU group.
 	Mems   string  // Mems represents the list of available memory nodes in the CPU group.
+}
+
+func NewCPUMax(quota *int64, period *uint64) CPUMax {
+	max := "max"
+	if quota != nil {
+		max = strconv.FormatInt(*quota, 10)
+	}
+	return CPUMax(strings.Join([]string{max, strconv.FormatUint(*period, 10)}, " "))
 }
 
 func (c *CPU) Values() (v []Value) {
